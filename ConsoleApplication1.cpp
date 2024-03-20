@@ -50,6 +50,7 @@ void Free_Memory(Node*& head)
     }
 }
 
+// Вставлення після вузла (або перед)
 void Insert_After(Node*& prev, int x)
 {
     if (prev == NULL)
@@ -63,6 +64,7 @@ void Insert_After(Node*& prev, int x)
     prev->next = c;
 }
 
+// Видалення вузла
 void DeleteNodePtr(Node*& head, Node*& end, Node* ptr)
 {
     if (ptr == NULL) return;
@@ -84,6 +86,7 @@ void DeleteNodePtr(Node*& head, Node*& end, Node* ptr)
     delete ptr;
 }
 
+// Завдання 1
 void Task1()
 {
     // 15 | дійсний | Обчислити добуток мінімального і максимального елементів списку
@@ -111,6 +114,7 @@ void Task1()
     return;
 }
 
+// Завдання 2
 void Task2()
 {
     // 15 | дійсний | Поміняти місцями максимальний елемент з першим
@@ -132,7 +136,7 @@ void Task2()
         c = c->next;
     }
 
-    if (head->data == max)
+    if (head->data == max) // Якщо максимальний елемент вже перший
     {
         cout << "\nMax element is already first element";
         return;
@@ -140,26 +144,33 @@ void Task2()
 
     Node* prev = NULL;
     c = head;
-    while (c != NULL && c->data != max)
+    while (c != NULL && c->data != max) // Пошук вузла
     {
         prev = c;
         c = c->next;
     }
-
-    Node* tmp = head->next;
-    prev->next = head;
-    head->next = c->next;
-    c->next = tmp;
+    if (prev == head) // Заміна вузлів
+    {
+        head->next = c->next;
+        c->next = head;
+    }
+    else
+    {
+        Node* tmp = head->next;
+        prev->next = head;
+        head->next = c->next;
+        c->next = tmp;
+    }
 
     head = c;
 
-    cout << "New list:" << endl;
     Print_List(head);
 
     Free_Memory(head); // кінець роботи програми
     return;
 }
 
+// Завдання 3
 void Task3()
 {
     // 15 | цілий | Вводити елементи, доки сума елементыв не стане більшою за -10
@@ -177,7 +188,7 @@ void Task3()
 
     Node* last_even = NULL; c = head;
     int i = 0;
-    if (head == end)
+    if (head == end) // Якщо лише один елемент
     {
         cout << "\nCannot execute program with only one element" << endl;
         return;
@@ -198,7 +209,7 @@ void Task3()
     
     c = head;
     i = 0;
-    while (c->next != NULL && c != NULL)
+    while (c->next != NULL && c != NULL) // Вставлення елементів
     {
         i++;
         if (i % 2 != 0)
@@ -217,13 +228,14 @@ void Task3()
     return;
 }
 
+// Завдання 4
 void Task4()
 {
     // 15 | Цілий | Вводити елементи, доки сума парних елементів не стане більшою за 20
     // Вилучити всі елементи з абсолютним значенням менше 5
     Node* head = NULL, * end = NULL, * c;
     int x, i = 0, sum = 0;
-    cout << "Task3 Input 10 elements:" << endl;
+    cout << "Task4 Input 10 elements:" << endl;
     while (sum < 20)
     {
         i++;
@@ -256,9 +268,9 @@ void Task4()
 int main()
 {
     //Task1();
-    //Task2();
+    Task2();
     //Task3();
-    Task4();
+    //Task4();
 
     return 0;
 }
