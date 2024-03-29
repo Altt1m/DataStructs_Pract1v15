@@ -138,7 +138,7 @@ void Task2()
 
     if (head->data == max) // Якщо максимальний елемент вже перший
     {
-        cout << "\nMax element is already first element";
+        cout << "\nMax element is already first element" << endl;
         return;
     }
 
@@ -177,7 +177,7 @@ void Task3()
     // Вставити в список останній парний елемент після кожного непарного елемента 
     Node* head = NULL, * end = NULL, * c;
     int x, sum = 0;
-    cout << "Task3 Input 10 elements:" << endl;
+    cout << "Task3 Input elements:" << endl;
     while (true)
     {
         cin >> x; Add_Node(head, end, x);
@@ -186,8 +186,8 @@ void Task3()
     }
     Print_List(head);
 
-    Node* last_even = NULL; c = head;
-    int i = 0;
+    Node* last_even = NULL;
+    c = head;
     if (head == end) // Якщо лише один елемент
     {
         cout << "\nCannot execute program with only one element" << endl;
@@ -197,22 +197,28 @@ void Task3()
     {
         while (c != NULL) // Знаходження останнього парного елемента
         {
-            i++;
-            if (c->next == NULL && i % 2 != 0)
+            if ((int)c->data % 2 == 0)
             {
-                break;
+                last_even = c;
             }
-            last_even = c;
             c = c->next;
+        }
+
+        if (last_even == NULL)
+        {
+            cout << "\nNo even elements were found" << endl;
+            return;
+        }
+        else
+        {
+            cout << "\nLast even element is " << last_even->data << endl;
         }
     }
     
     c = head;
-    i = 0;
     while (c != NULL) // Вставлення елементів
     {
-        i++;
-        if (i % 2 != 0)
+        if ((int)c->data % 2 != 0)
         {
             Node* tmp = c;
             c = c->next;
@@ -234,13 +240,12 @@ void Task4()
     // 15 | Цілий | Вводити елементи, доки сума парних елементів не стане більшою за 20
     // Вилучити всі елементи з абсолютним значенням менше 5
     Node* head = NULL, * end = NULL, * c;
-    int x, i = 0, sum = 0;
-    cout << "Task4 Input 10 elements:" << endl;
-    while (sum < 20)
+    int x, sum = 0;
+    cout << "Task4 Input elements:" << endl;
+    while (sum <= 20)
     {
-        i++;
         cin >> x; Add_Node(head, end, x);
-        if (i % 2 == 0) sum += x;
+        if (x % 2 == 0) sum += x;
     }
     Print_List(head);
 
